@@ -17,6 +17,7 @@ ksp = "2.0.0-1.0.21"
 kotlinCompose = "2.0.0"
 kotlinSerialization = "1.6.3"
 navigation = "2.8.0-beta04"
+coil = "2.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,15 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+
+[bundles]
+retrofit = [
+    "retrofit",
+    "retrofit-converterJson",
+    "okhttp"
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

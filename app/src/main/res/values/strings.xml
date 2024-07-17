@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NewsApp</string>
+
+    <string name="enter_email">Введите email</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="login">Войти</string>
+    <string name="no_account_register">Все еще нет аккаунта? Зарегистрируйтесь</string>
 </resources>

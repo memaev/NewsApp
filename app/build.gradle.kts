@@ -80,10 +80,9 @@ dependencies {
 
     implementation(libs.glide)
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converterJson)
-    implementation(libs.okhttp)
-
     implementation(libs.kotlinx.serialization)
     implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.coil)
+    implementation(libs.bundles.retrofit)
 }
