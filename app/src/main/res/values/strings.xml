@@ -8,4 +8,7 @@
     <string name="no_account_register">Все еще нет аккаунта? Зарегистрируйтесь</string>
     <string name="register">Зарегистрироваться</string>
     <string name="already_have_an_account">Уже есть аккаунт? Войти</string>
+
+    <string name="feed">Лента</string>
+    <string name="profile">Профиль</string>
 </resources>
