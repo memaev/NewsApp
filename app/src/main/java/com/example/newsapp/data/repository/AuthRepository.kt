@@ -2,7 +2,7 @@ package com.example.newsapp.data.repository
 
 import com.example.newsapp.domain.dao.UserDao
 import com.example.newsapp.domain.entity.User
-import com.example.newsapp.util.Result
+import com.example.newsapp.domain.util.Result
 import java.util.UUID
 import javax.inject.Inject
 

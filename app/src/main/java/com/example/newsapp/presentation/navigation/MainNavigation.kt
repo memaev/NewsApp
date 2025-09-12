@@ -2,14 +2,12 @@ package com.example.newsapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.newsapp.presentation.screen.LoginScreen
-import com.example.newsapp.presentation.screen.MainScreen
-import com.example.newsapp.presentation.screen.RegisterScreen
-import com.example.newsapp.presentation.screen.viewmodel.LoginScreenViewModel
+import com.example.newsapp.presentation.screen.login.LoginScreen
+import com.example.newsapp.presentation.screen.main.MainScreen
+import com.example.newsapp.presentation.screen.register.RegisterScreen
 import kotlinx.serialization.Serializable
 
 sealed class Screen {

@@ -1,6 +1,6 @@
-package com.example.newsapp.presentation.screen.state
+package com.example.newsapp.presentation.screen.login
 
-import com.example.newsapp.util.Result
+import com.example.newsapp.domain.util.Result
 
 sealed class LoginScreenEvent {
     data class EmailUpdated(val newEmail: String): LoginScreenEvent()

@@ -1,4 +1,4 @@
-package com.example.newsapp.di
+package com.example.newsapp.presentation.di
 
 import com.example.newsapp.data.repository.AuthRepository
 import com.example.newsapp.domain.dao.UserDao
