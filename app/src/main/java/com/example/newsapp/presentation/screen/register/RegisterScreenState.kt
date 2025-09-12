@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.screen.state
+package com.example.newsapp.presentation.screen.register
 
 import com.example.newsapp.util.Result
 
