@@ -1,6 +1,7 @@
 package com.example.newsapp.presentation.screen.main
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -25,7 +26,8 @@ fun MainScreen(
         bottomBar = { BottomNavigationBar(navController) }
     ) {
         NavHost(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .padding(it),
             navController = navController,
             startDestination = MainScreenNavigationRoute.Feed
         ) {
