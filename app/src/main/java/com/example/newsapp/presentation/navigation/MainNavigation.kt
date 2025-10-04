@@ -24,12 +24,13 @@ sealed class Screen {
 @Composable
 fun MainNav(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    isLoggedIn: Boolean
 ) {
     NavHost(
         modifier = modifier,
         navController = navHostController,
-        startDestination = Screen.Login
+        startDestination = if (isLoggedIn) Screen.Main else Screen.Login
     ) {
         composable<Screen.Login> {
             LoginScreen(

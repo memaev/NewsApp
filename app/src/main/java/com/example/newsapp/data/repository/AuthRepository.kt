@@ -7,12 +7,16 @@ import java.util.UUID
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val localAuthManager: LocalAuthManager
 ) {
     suspend fun login(email: String, password: String): Result {
         val loginUser = userDao.login(email, password)
         val result = if (loginUser == null) Result.Failure<Unit>("Login failed. Check your credentials")
-        else Result.Success<Unit>("Successfully logged in")
+        else {
+            localAuthManager.rememberAuth(loginUser.id)
+            Result.Success<Unit>("Successfully logged in")
+        }
 
         return result
     }
@@ -28,6 +32,9 @@ class AuthRepository @Inject constructor(
             password = password
         )
         userDao.addUser(user)
+
+        localAuthManager.rememberAuth(user.id)
+
         return Result.Success<Unit>("Successfully registered")
     }
 }
