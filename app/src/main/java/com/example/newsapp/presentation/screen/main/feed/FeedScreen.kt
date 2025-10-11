@@ -27,52 +27,40 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.newsapp.domain.model.NewsItem
 import kotlinx.datetime.LocalDateTime
 import com.example.newsapp.R
+import com.example.newsapp.presentation.navigation.Screen
 
 @Composable
-fun FeedScreen() {
-    var searchText by remember { mutableStateOf("") }
+fun FeedScreen(
+    navigate: (Screen) -> Unit
+) {
+    val viewModel = hiltViewModel<FeedScreenViewModel, FeedScreenViewModel.Factory> {
+        it.create(navigate)
+    }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val sampleNewsItems = listOf(
-        NewsItem(
-            id = "1",
-            title = "Breaking News: Compose Simplifies UI Development",
-            description = "Jetpack Compose is revolutionizing Android UI development with its declarative approach.",
-            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuNlsfnHCpJNqy_3bE_Qk1K3HWiUkggy8z8g&s",
-            isFavorite = false,
-            publishedBy = "Tech News Daily",
-            publishedAt = LocalDateTime(2024, 6, 15, 10, 0)
-        ),
-        NewsItem(
-            id = "2",
-            title = "Kotlin Multiplatform: One Language, Many Platforms",
-            description = "Kotlin Multiplatform allows developers to share code across multiple platforms seamlessly.",
-            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuNlsfnHCpJNqy_3bE_Qk1K3HWiUkggy8z8g&s",
-            isFavorite = true,
-            publishedBy = "Dev Weekly",
-            publishedAt = LocalDateTime(2024, 6, 14, 9, 30)
-        ),
-        NewsItem(
-            id = "3",
-            title = "Android 14: What's New?",
-            description = "Explore the latest features and improvements in Android 14.",
-            imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuNlsfnHCpJNqy_3bE_Qk1K3HWiUkggy8z8g&s",
-            isFavorite = false,
-            publishedBy = "Android Central",
-            publishedAt = LocalDateTime(2024, 6, 13, 14, 15)
-        )
+    FeedScreenContent(
+        state = state,
+        onEvent = viewModel::onEvent
     )
+}
 
+@Composable
+fun FeedScreenContent(
+    state: FeedScreenState,
+    onEvent: (FeedScreenEvent) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
-            value = searchText,
-            onValueChange = { searchText = it },
+            value = state.searchQuery,
+            onValueChange = { onEvent(FeedScreenEvent.SearchQueryChanged(it)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -95,11 +83,15 @@ fun FeedScreen() {
                 .fillMaxWidth(0.9f),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(sampleNewsItems) {
+            items(state.filteredNews) {
                 com.example.newsapp.presentation.ui.component.NewsItem(
                     newsItem = it,
-                    onFavoriteClicked = {},
-                    onReadClicked = {}
+                    onFavoriteClicked = {
+                        onEvent(FeedScreenEvent.NewsItemFavoriteToggleClicked(it))
+                    },
+                    onReadClicked = {
+                        onEvent(FeedScreenEvent.NewsItemClicked(it))
+                    }
                 )
             }
         }

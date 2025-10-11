@@ -3,6 +3,7 @@ package com.example.newsapp.di
 import android.content.Context
 import com.example.newsapp.data.repository.AuthRepository
 import com.example.newsapp.data.repository.LocalAuthManager
+import com.example.newsapp.data.repository.NewsRepository
 import com.example.newsapp.domain.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -25,5 +26,11 @@ object RepositoryModule {
     @Singleton
     fun provideAuthRepository(userDao: UserDao, localAuthManager: LocalAuthManager): AuthRepository {
         return AuthRepository(userDao, localAuthManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(): NewsRepository {
+        return NewsRepository()
     }
 }

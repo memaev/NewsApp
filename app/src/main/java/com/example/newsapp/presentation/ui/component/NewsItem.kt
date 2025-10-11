@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -79,6 +82,7 @@ fun NewsItem(
             ) {
                 Text(
                     text = newsItem.title,
+                    modifier = Modifier.weight(1f),
                     fontSize = 22.sp
                 )
                 IconButton(
@@ -86,7 +90,7 @@ fun NewsItem(
                 ) {
                     Icon(
                         imageVector = if (newsItem.isFavorite) Icons.Filled.Favorite
-                        else Icons.Outlined.Favorite,
+                        else Icons.Outlined.FavoriteBorder,
                         contentDescription = "Добавить в избранные"
                     )
                 }
