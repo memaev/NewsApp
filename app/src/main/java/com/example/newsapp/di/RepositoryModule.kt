@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
 import javax.inject.Singleton
 
 @Module
@@ -30,7 +31,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(): NewsRepository {
-        return NewsRepository()
+    fun provideNewsRepository(httpClient: HttpClient): NewsRepository {
+        return NewsRepository(httpClient)
     }
 }

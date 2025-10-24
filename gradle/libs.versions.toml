@@ -10,14 +10,13 @@ activityCompose = "1.11.0"
 composeBom = "2025.09.01"
 room = "2.8.1"
 hilt = "2.57.2"
-retrofit = "3.0.0"
-okhttp = "5.1.0"
 ksp = "2.2.20-2.0.3"
 kotlinSerialization = "1.9.0"
 navigation = "2.9.5"
 coil = "2.7.0"
 hiltNavigation = "1.3.0"
 dateTime = "0.7.1"
+ktor = "3.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,22 +42,23 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room"}
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
 
-#Retrofit and OkHttp
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-converterJson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "dateTime" }
 
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
 [bundles]
-retrofit = [
-    "retrofit",
-    "retrofit-converterJson",
-    "okhttp"
+ktor = [
+    "ktor-client-core",
+    "ktor-client-android",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json"
 ]
 
 [plugins]

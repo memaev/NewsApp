@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -26,7 +28,12 @@ android {
         }
     }
 
+    val localProperties = Properties()
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
     buildTypes {
+        all {
+            buildConfigField("String", "API_KEY", localProperties["API_KEY"].toString())
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -46,6 +53,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -88,7 +96,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.coil.compose)
-    implementation(libs.bundles.retrofit)
 
     implementation(libs.kotlinx.datetime)
+    implementation(libs.bundles.ktor)
 }
