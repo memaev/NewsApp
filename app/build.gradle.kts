@@ -29,7 +29,7 @@ android {
     }
 
     val localProperties = Properties()
-    localProperties.load(FileInputStream(rootProject.file("local.properties")))
+    localProperties.load(FileInputStream("local.properties"))
     buildTypes {
         all {
             buildConfigField("String", "API_KEY", localProperties["API_KEY"].toString())
