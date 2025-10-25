@@ -130,6 +130,7 @@ fun NewsItemPreview() {
             newsItem = NewsItem(
                 id = "1",
                 title = "News item 1",
+                url = null,
                 description = "News item 1 description",
                 publishedBy = "News source",
                 publishedAt = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),

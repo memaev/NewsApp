@@ -14,6 +14,7 @@ fun NewsItemDto.toModel(): NewsItem {
     return NewsItem(
         id = generateIdFromUrl(url),
         title = title ?: "No Title",
+        url = url,
         description = description ?: "No Description",
         publishedBy = source?.name ?: "Unknown Source",
         publishedAt = publishedAt?.let { Instant.parse(it).toLocalDateTime(TimeZone.currentSystemDefault()) }

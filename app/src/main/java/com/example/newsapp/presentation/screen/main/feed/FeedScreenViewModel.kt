@@ -4,10 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.repository.NewsRepository
 import com.example.newsapp.domain.model.NewsItem
-import com.example.newsapp.presentation.navigation.Screen
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-@HiltViewModel(assistedFactory = FeedScreenViewModel.Factory::class)
-class FeedScreenViewModel @AssistedInject constructor(
-    @Assisted val navigate: (Screen) -> Unit,
+@HiltViewModel
+class FeedScreenViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ): ViewModel() {
 
@@ -29,10 +25,14 @@ class FeedScreenViewModel @AssistedInject constructor(
 
     fun onEvent(event: FeedScreenEvent) {
         when (event) {
-            is FeedScreenEvent.NewsItemClicked -> TODO()
+            is FeedScreenEvent.NewsItemClicked -> onNewsItemClicked(event.newsItem)
             is FeedScreenEvent.SearchQueryChanged -> onSearchQueryChanged(event.newSearchQuery)
             is FeedScreenEvent.NewsItemFavoriteToggleClicked -> onNewsItemFavoriteToggleClicked(event.newsItem)
         }
+    }
+
+    private fun onNewsItemClicked(newsItem: NewsItem) {
+        _state.update { it.copy(selectedNewsArticleUrl = newsItem.url) }
     }
 
     private fun onNewsItemFavoriteToggleClicked(newsItem: NewsItem) {
@@ -66,10 +66,5 @@ class FeedScreenViewModel @AssistedInject constructor(
 
     init {
         loadNews()
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(navigate: (Screen) -> Unit): FeedScreenViewModel
     }
 }

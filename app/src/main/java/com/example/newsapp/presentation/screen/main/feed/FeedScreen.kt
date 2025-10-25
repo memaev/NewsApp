@@ -1,14 +1,13 @@
 package com.example.newsapp.presentation.screen.main.feed
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -17,32 +16,32 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.newsapp.domain.model.NewsItem
-import kotlinx.datetime.LocalDateTime
 import com.example.newsapp.R
-import com.example.newsapp.presentation.navigation.Screen
 
 @Composable
-fun FeedScreen(
-    navigate: (Screen) -> Unit
-) {
-    val viewModel = hiltViewModel<FeedScreenViewModel, FeedScreenViewModel.Factory> {
-        it.create(navigate)
-    }
+fun FeedScreen() {
+    val viewModel = hiltViewModel<FeedScreenViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
+    LaunchedEffect(state.selectedNewsArticleUrl) {
+        state.selectedNewsArticleUrl?.let { url ->
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+            context.startActivity(intent)
+        }
+    }
     FeedScreenContent(
         state = state,
         onEvent = viewModel::onEvent
