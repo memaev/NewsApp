@@ -2,8 +2,10 @@ package com.example.newsapp.di
 
 import android.content.Context
 import com.example.newsapp.data.repository.AuthRepository
+import com.example.newsapp.data.repository.FavoriteNewsRepository
 import com.example.newsapp.data.repository.LocalAuthManager
 import com.example.newsapp.data.repository.NewsRepository
+import com.example.newsapp.domain.dao.FavoriteNewsDao
 import com.example.newsapp.domain.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -33,5 +35,11 @@ object RepositoryModule {
     @Singleton
     fun provideNewsRepository(httpClient: HttpClient): NewsRepository {
         return NewsRepository(httpClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteNewsRepository(favoriteNewsDao: FavoriteNewsDao): FavoriteNewsRepository {
+        return FavoriteNewsRepository(favoriteNewsDao)
     }
 }

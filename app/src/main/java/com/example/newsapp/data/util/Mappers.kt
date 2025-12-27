@@ -1,9 +1,11 @@
 package com.example.newsapp.data.util
 
 import com.example.newsapp.data.dto.NewsItemDto
+import com.example.newsapp.domain.entity.FavoriteNewsItemEntity
 import com.example.newsapp.domain.model.NewsItem
 import kotlin.time.Instant
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import java.security.MessageDigest
 import kotlin.time.Clock
@@ -21,6 +23,34 @@ fun NewsItemDto.toModel(): NewsItem {
             ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
         imageUrl = urlToImage ?: "",
         isFavorite = false
+    )
+}
+
+@OptIn(ExperimentalTime::class)
+fun FavoriteNewsItemEntity.toModel(): NewsItem {
+    return NewsItem(
+        id = id,
+        title = title,
+        url = url,
+        description = description,
+        publishedBy = publishedBy,
+        publishedAt = publishedAt.toLocalDateTime(TimeZone.currentSystemDefault()),
+        imageUrl = imageUrl,
+        isFavorite = true
+    )
+}
+
+@OptIn(ExperimentalTime::class)
+fun NewsItem.toFavoriteNewsItemEntity(savedByUserId: String): FavoriteNewsItemEntity {
+    return FavoriteNewsItemEntity(
+        id = id,
+        title = title,
+        url = url,
+        description = description,
+        publishedBy = publishedBy,
+        publishedAt = publishedAt.toInstant(TimeZone.currentSystemDefault()),
+        imageUrl = imageUrl,
+        savedByUserId = savedByUserId
     )
 }
 

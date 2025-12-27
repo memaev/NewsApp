@@ -2,9 +2,9 @@ package com.example.newsapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.newsapp.data.database.UserDatabase
+import com.example.newsapp.data.database.AppDatabase
+import com.example.newsapp.domain.dao.FavoriteNewsDao
 import com.example.newsapp.domain.dao.UserDao
-import com.example.newsapp.domain.entity.User
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,17 +17,23 @@ import javax.inject.Singleton
 object DaoModule {
     @Provides
     @Singleton
-    fun provideUserDatabase(@ApplicationContext context: Context): UserDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            UserDatabase::class.java,
-            "userDatabase.db"
+            AppDatabase::class.java,
+            "appDatabase.db"
         ).build()
     }
 
     @Provides
     @Singleton
-    fun provideUserDao(userDatabase: UserDatabase): UserDao {
-        return userDatabase.getUserDao()
+    fun provideUserDao(appDatabase: AppDatabase): UserDao {
+        return appDatabase.getUserDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteNewsDao(appDatabase: AppDatabase): FavoriteNewsDao {
+        return appDatabase.getFavoriteNewsDao()
     }
 }
